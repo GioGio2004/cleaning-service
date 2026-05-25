@@ -237,7 +237,7 @@ export default function Home() {
     { scope: containerRef },
   );
 
-  // ── CTA Button GSAP hover (separate from scoped context) ──────────────────
+  // ─��� CTA Button GSAP hover (separate from scoped context) ──────────────────
   useEffect(() => {
     const btn = ctaBtnRef.current;
     if (!btn) return;
@@ -256,12 +256,12 @@ export default function Home() {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen bg-sand-50 text-forest-900"
+      className="relative min-h-screen bg-charcoal-950 text-slate-200"
     >
-      {/* ── 1. FIXED CINEMATIC BACKGROUND ──────────────────────────────────── */}
+      {/* ── 1. FIXED CINEMATIC VIDEO BACKGROUND ────────────────────────────── */}
       <div
         className="fixed inset-0 pointer-events-none overflow-hidden"
-        style={{ zIndex: -1 }}
+        style={{ zIndex: 0 }}
         aria-hidden="true"
       >
         <video
@@ -269,36 +269,36 @@ export default function Home() {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            minWidth: '100%',
+            minHeight: '100%',
+          }}
         >
           <source
-            src="https://res.cloudinary.com/voloostore/video/upload/q_auto,f_auto,w_1920,h_1080,c_fill/v1779666909/qifi3ams9lrec8axbh6c.mp4"
+            src="https://res.cloudinary.com/voloostore/video/upload/q_auto:low,f_auto,w_1280/v1779666909/qifi3ams9lrec8axbh6c.mp4"
+            type="video/mp4"
+            media="(max-width: 768px)"
+          />
+          <source
+            src="https://res.cloudinary.com/voloostore/video/upload/q_auto,f_auto,w_1920/v1779666909/qifi3ams9lrec8axbh6c.mp4"
             type="video/mp4"
           />
         </video>
-        {/* Soft warm overlay so video reads as ambient texture, not movie */}
+        {/* 60% Dark tint overlay */}
         <div
           className="absolute inset-0"
-          style={{ background: "rgba(247,245,240,0.72)" }}
-        />
-        {/* Subtle organic grain texture */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-            backgroundRepeat: "repeat",
-            backgroundSize: "200px 200px",
-          }}
+          style={{ background: "rgba(10,10,11,0.60)" }}
         />
       </div>
 
       {/* ── 2. NAVIGATION ──────────────────────────────────────────────────── */}
       <header className="fixed top-0 left-0 right-0 z-50 px-6 py-5 flex items-center justify-between">
         <div className="glass-card rounded-full px-5 py-2.5 flex items-center gap-2.5">
-          <Leaf className="w-4 h-4 text-pine-600" />
+          <Leaf className="w-4 h-4 text-gold-500" />
           <span
-            className="nav-logo font-bold text-forest-900 tracking-widest uppercase text-sm"
+            className="nav-logo font-bold text-slate-200 tracking-widest uppercase text-sm"
             style={{ fontFamily: "var(--font-inter)" }}
           >
             Qimwmenda
@@ -309,37 +309,37 @@ export default function Home() {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="glass-card rounded-full px-5 py-2.5 flex items-center gap-2 text-forest-900 text-sm font-medium hover:bg-white/80 transition-all duration-300 hover:scale-105 active:scale-95"
+          className="glass-card rounded-full px-5 py-2.5 flex items-center gap-2 text-slate-200 text-sm font-medium hover:bg-charcoal-700/80 transition-all duration-300 hover:scale-105 active:scale-95"
         >
-          <Phone className="w-4 h-4 text-pine-600" />
+          <Phone className="w-4 h-4 text-gold-500" />
           <span className="hidden sm:block">Book Now</span>
         </a>
       </header>
 
       {/* ── 3. HERO SECTION ────────────────────────────────────────────────── */}
       <section
-        className="relative flex flex-col items-center justify-center min-h-[100dvh] px-6 text-center"
+        className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] px-6 text-center"
         aria-label="Hero"
       >
         {/* Badge */}
         <div className="hero-reveal mb-8">
-          <span className="inline-flex items-center gap-2 glass-card rounded-full px-5 py-2 text-sm font-medium text-forest-900 border border-forest-900/10">
-            <Star className="w-3.5 h-3.5 text-clay-500 fill-clay-500" />
+          <span className="inline-flex items-center gap-2 glass-card rounded-full px-5 py-2 text-sm font-medium text-slate-200 border border-white/10">
+            <Star className="w-3.5 h-3.5 text-gold-500 fill-gold-500" />
             Tbilisi&apos;s Premium Care
-            <Star className="w-3.5 h-3.5 text-clay-500 fill-clay-500" />
+            <Star className="w-3.5 h-3.5 text-gold-500 fill-gold-500" />
           </span>
         </div>
 
         {/* Headline */}
         <h1
-          className="hero-reveal max-w-4xl text-[clamp(3.5rem,10vw,8rem)] font-bold leading-[0.92] tracking-tight text-forest-900"
+          className="hero-reveal max-w-4xl text-[clamp(3.5rem,10vw,8rem)] font-bold leading-[0.92] tracking-tight text-slate-200"
           style={{
             fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif",
           }}
         >
           Revive Your Space.{" "}
           <em
-            className="italic text-clay-500 not-italic"
+            className="italic text-gold-500 not-italic"
             style={{ fontStyle: "italic" }}
           >
             Naturally.
@@ -347,7 +347,7 @@ export default function Home() {
         </h1>
 
         {/* Subheadline */}
-        <p className="hero-reveal mt-7 max-w-xl text-lg leading-relaxed text-forest-900/65 font-light">
+        <p className="hero-reveal mt-7 max-w-xl text-lg leading-relaxed text-slate-300/80 font-light">
           Premium deep cleaning that respects your home, your health, and the
           environment. Est. 2026 in Tbilisi, Georgia.
         </p>
@@ -360,14 +360,14 @@ export default function Home() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-pine-600 text-white font-semibold text-base tracking-wide shadow-lg shadow-pine-600/30 hover:bg-pine-700 transition-colors duration-300"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gold-500 text-charcoal-950 font-semibold text-base tracking-wide shadow-lg shadow-gold-500/20 hover:bg-gold-400 transition-colors duration-300"
           >
             <MessageCircle className="w-5 h-5" />
             Book via WhatsApp
           </a>
           <a
             href="#services"
-            className="inline-flex items-center gap-2 px-6 py-4 rounded-full glass-card text-forest-900 font-medium text-base hover:bg-white/80 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-6 py-4 rounded-full glass-card text-slate-200 font-medium text-base hover:bg-charcoal-700/80 transition-all duration-300"
           >
             Explore Services
           </a>
@@ -375,15 +375,15 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <div className="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40">
-          <span className="text-xs tracking-widest uppercase font-medium text-forest-900">
+          <span className="text-xs tracking-widest uppercase font-medium text-slate-200">
             Scroll
           </span>
-          <ChevronDown className="w-4 h-4 text-forest-900" />
+          <ChevronDown className="w-4 h-4 text-slate-200" />
         </div>
       </section>
 
       {/* ── 4. TRUST INDICATORS ────────────────────────────────────────────── */}
-      <section className="trust-row px-6 py-14 border-y border-forest-900/8">
+      <section className="relative z-10 trust-row px-6 py-14 border-y border-white/8">
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-x-12 gap-y-6">
           {[
             { label: "Satisfied Clients", value: "500+" },
@@ -396,7 +396,7 @@ export default function Home() {
               className="trust-item flex flex-col items-center gap-1 text-center"
             >
               <span
-                className="text-3xl font-bold text-forest-900"
+                className="text-3xl font-bold text-slate-200"
                 style={{
                   fontFamily:
                     "var(--font-cormorant), 'Cormorant Garamond', serif",
@@ -404,7 +404,7 @@ export default function Home() {
               >
                 {stat.value}
               </span>
-              <span className="text-xs tracking-widest uppercase text-forest-900/50 font-medium">
+              <span className="text-xs tracking-widest uppercase text-slate-400 font-medium">
                 {stat.label}
               </span>
             </div>
@@ -415,22 +415,22 @@ export default function Home() {
       {/* ── 5. SERVICES GRID ───────────────────────────────────────────────── */}
       <section
         id="services"
-        className="services-section px-6 py-28 max-w-7xl mx-auto"
+        className="relative z-10 services-section px-6 py-28 max-w-7xl mx-auto"
       >
         {/* Section header */}
         <div className="mb-16 flex flex-col items-center text-center gap-4">
-          <span className="section-label text-xs tracking-[0.2em] uppercase font-semibold text-clay-500">
+          <span className="section-label text-xs tracking-[0.2em] uppercase font-semibold text-gold-500">
             What We Do
           </span>
           <h2
-            className="text-[clamp(2.5rem,6vw,5rem)] font-bold text-forest-900 leading-tight"
+            className="text-[clamp(2.5rem,6vw,5rem)] font-bold text-slate-200 leading-tight"
             style={{
               fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif",
             }}
           >
             Our Disciplines
           </h2>
-          <p className="max-w-md text-base text-forest-900/60 font-light">
+          <p className="max-w-md text-base text-slate-400 font-light">
             Every service is executed with precision using professional-grade
             equipment and eco-conscious solutions.
           </p>
@@ -452,9 +452,9 @@ export default function Home() {
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 {service.badge && (
-                  <span className="absolute top-3 left-3 bg-clay-500 text-white text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                  <span className="absolute top-3 left-3 bg-gold-500 text-charcoal-950 text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
                     {service.badge}
                   </span>
                 )}
@@ -463,7 +463,7 @@ export default function Home() {
               {/* Content */}
               <div className="p-6">
                 <h3
-                  className="text-2xl font-semibold text-forest-900 mb-2 leading-tight"
+                  className="text-2xl font-semibold text-slate-200 mb-2 leading-tight"
                   style={{
                     fontFamily:
                       "var(--font-cormorant), 'Cormorant Garamond', serif",
@@ -471,14 +471,14 @@ export default function Home() {
                 >
                   {service.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-forest-900/60">
+                <p className="text-sm leading-relaxed text-slate-400">
                   {service.desc}
                 </p>
                 <a
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-pine-600 hover:text-pine-700 transition-colors group/link"
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-500 hover:text-gold-400 transition-colors group/link"
                 >
                   Book this service
                   <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1">
@@ -492,13 +492,13 @@ export default function Home() {
       </section>
 
       {/* ── 6. PRICING ─────────────────────────────────────────────────────── */}
-      <section className="pricing-section px-6 py-28 max-w-5xl mx-auto">
+      <section className="relative z-10 pricing-section px-6 py-28 max-w-5xl mx-auto">
         <div className="mb-16 flex flex-col items-center text-center gap-4">
-          <span className="text-xs tracking-[0.2em] uppercase font-semibold text-clay-500">
+          <span className="text-xs tracking-[0.2em] uppercase font-semibold text-gold-500">
             Investment
           </span>
           <h2
-            className="text-[clamp(2.5rem,6vw,5rem)] font-bold text-forest-900 leading-tight"
+            className="text-[clamp(2.5rem,6vw,5rem)] font-bold text-slate-200 leading-tight"
             style={{
               fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif",
             }}
@@ -513,14 +513,14 @@ export default function Home() {
               key={idx}
               className={`pricing-card rounded-2xl p-8 flex flex-col gap-5 transition-transform duration-300 hover:-translate-y-1 ${
                 tier.highlight
-                  ? "bg-pine-600 text-white shadow-2xl shadow-pine-600/25"
+                  ? "bg-gold-500 text-charcoal-950 shadow-2xl shadow-gold-500/25"
                   : "glass-card"
               }`}
             >
               <div>
                 <p
                   className={`text-xs tracking-widest uppercase font-semibold mb-2 ${
-                    tier.highlight ? "text-white/60" : "text-forest-900/50"
+                    tier.highlight ? "text-charcoal-950/60" : "text-slate-400"
                   }`}
                 >
                   {tier.title}
@@ -529,7 +529,7 @@ export default function Home() {
                   {tier.currency && (
                     <span
                       className={`text-sm font-medium pb-1 ${
-                        tier.highlight ? "text-white/70" : "text-clay-500"
+                        tier.highlight ? "text-charcoal-950/70" : "text-gold-500"
                       }`}
                     >
                       {tier.currency}
@@ -537,7 +537,7 @@ export default function Home() {
                   )}
                   <span
                     className={`text-5xl font-bold ${
-                      tier.highlight ? "text-white" : "text-clay-500"
+                      tier.highlight ? "text-charcoal-950" : "text-gold-500"
                     }`}
                     style={{
                       fontFamily:
@@ -548,7 +548,7 @@ export default function Home() {
                   </span>
                   <span
                     className={`text-sm pb-1.5 ${
-                      tier.highlight ? "text-white/60" : "text-forest-900/40"
+                      tier.highlight ? "text-charcoal-950/60" : "text-slate-500"
                     }`}
                   >
                     / {tier.unit}
@@ -558,7 +558,7 @@ export default function Home() {
 
               <p
                 className={`text-sm leading-relaxed ${
-                  tier.highlight ? "text-white/75" : "text-forest-900/60"
+                  tier.highlight ? "text-charcoal-950/75" : "text-slate-400"
                 }`}
               >
                 {tier.desc}
@@ -569,12 +569,12 @@ export default function Home() {
                   <li
                     key={f}
                     className={`flex items-center gap-2 text-sm ${
-                      tier.highlight ? "text-white/85" : "text-forest-900/70"
+                      tier.highlight ? "text-charcoal-950/85" : "text-slate-300"
                     }`}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                        tier.highlight ? "bg-white/60" : "bg-clay-500"
+                        tier.highlight ? "bg-charcoal-950/60" : "bg-gold-500"
                       }`}
                     />
                     {f}
@@ -588,8 +588,8 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className={`mt-auto flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-semibold text-sm tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-95 ${
                   tier.highlight
-                    ? "bg-white text-pine-600 hover:bg-sand-50 shadow-lg"
-                    : "bg-pine-600 text-white hover:bg-pine-700 shadow-md shadow-pine-600/20"
+                    ? "bg-charcoal-950 text-gold-500 hover:bg-charcoal-900 shadow-lg"
+                    : "bg-gold-500 text-charcoal-950 hover:bg-gold-400 shadow-md shadow-gold-500/20"
                 }`}
               >
                 <MessageCircle className="w-4 h-4" />
@@ -602,7 +602,7 @@ export default function Home() {
 
       {/* ── 7. WHATSAPP FOOTER CTA ─────────────────────────────────────────── */}
       <footer
-        className="footer-section relative px-6 py-36 text-center border-t border-forest-900/8 overflow-hidden"
+        className="relative z-10 footer-section px-6 py-36 text-center border-t border-white/8 overflow-hidden"
         aria-label="Contact footer"
       >
         {/* Decorative background circle */}
@@ -610,18 +610,18 @@ export default function Home() {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle, rgba(42,77,62,0.06) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 70%)",
           }}
           aria-hidden="true"
         />
 
         <div className="footer-cta relative max-w-3xl mx-auto flex flex-col items-center gap-8">
-          <span className="text-xs tracking-[0.25em] uppercase font-semibold text-clay-500">
+          <span className="text-xs tracking-[0.25em] uppercase font-semibold text-gold-500">
             Get in Touch
           </span>
 
           <h2
-            className="text-[clamp(3rem,8vw,7rem)] font-bold text-forest-900 leading-[0.92] tracking-tight"
+            className="text-[clamp(3rem,8vw,7rem)] font-bold text-slate-200 leading-[0.92] tracking-tight"
             style={{
               fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif",
             }}
@@ -629,14 +629,14 @@ export default function Home() {
             Ready to
             <br />
             <em
-              className="italic text-clay-500"
+              className="italic text-gold-500"
               style={{ fontStyle: "italic" }}
             >
               Begin?
             </em>
           </h2>
 
-          <p className="text-base text-forest-900/60 max-w-sm font-light leading-relaxed">
+          <p className="text-base text-slate-400 max-w-sm font-light leading-relaxed">
             Send us a message on WhatsApp and we&apos;ll get back to you within
             the hour to schedule your visit.
           </p>
@@ -646,13 +646,13 @@ export default function Home() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-pine-600 text-white font-semibold text-lg tracking-wide shadow-xl shadow-pine-600/30 hover:bg-pine-700 hover:scale-105 active:scale-95 transition-all duration-300"
+            className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gold-500 text-charcoal-950 font-semibold text-lg tracking-wide shadow-xl shadow-gold-500/30 hover:bg-gold-400 hover:scale-105 active:scale-95 transition-all duration-300"
           >
             <MessageCircle className="w-6 h-6" />
             Connect via WhatsApp
           </a>
 
-          <p className="text-xs text-forest-900/30 tracking-widest uppercase">
+          <p className="text-xs text-slate-500 tracking-widest uppercase">
             Tbilisi, Georgia · Available 7 days a week
           </p>
         </div>

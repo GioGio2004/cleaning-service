@@ -39,7 +39,7 @@ export default function RootLayout({
     <html
       lang="ka"
       suppressHydrationWarning
-      className={`${inter.variable} ${cormorant.variable}`}
+      className={`${inter.variable} ${cormorant.variable} bg-[#0A0A0B]`}
     >
       <body className={inter.className}>{children}</body>
     </html>
