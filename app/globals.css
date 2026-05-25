@@ -112,11 +112,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: auto; /* Lenis handles smooth scrolling */
+    overscroll-behavior: none;
   }
   body {
     @apply bg-black text-slate-200;
     min-height: 100dvh;
     overflow-x: hidden;
+    overscroll-behavior: none;
   }
 }
 

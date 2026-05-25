@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,6 +11,13 @@ import { MessageCircle, Leaf, Phone, Star, ChevronDown } from "lucide-react";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
+
+// ── VIDEO PLAYLIST ──────────────────────────────────────────────────────────
+export const HERO_VIDEOS = [
+  "https://res.cloudinary.com/voloostore/video/upload/v1779669610/cpfuwmzuoohuiojizim1.mp4",
+  "https://res.cloudinary.com/voloostore/video/upload/v1779671031/nuauknjzn5l2s7ygsd6p.mp4",
+  "https://res.cloudinary.com/voloostore/video/upload/v1779671024/ydsukjkopuqnfimwukmg.mp4"
+];
 
 // ── IMAGE URLS (Edit these with your Cloudinary links) ──────────────────────
 export const SERVICE_IMAGES = {
@@ -106,32 +113,46 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const ctaBtnRef = useRef<HTMLAnchorElement>(null);
 
-  // ── Smooth scrolling with Lenis ────────────────────────────────────────────
+  // ── Seamless Dual-Video Preloader ──────────────────────────────────────────
+  const [globalIndex, setGlobalIndex] = useState(0);
+  const videoRef0 = useRef<HTMLVideoElement>(null);
+  const videoRef1 = useRef<HTMLVideoElement>(null);
+
+  const activeLayer = globalIndex % 2; // 0 or 1
+  const nextGlobalIndex = globalIndex + 1;
+
+  // Layer 0 plays even indices, Layer 1 plays odd indices.
+  // The hidden layer is always assigned the 'next' video to preload natively.
+  const src0 = HERO_VIDEOS[(activeLayer === 0 ? globalIndex : nextGlobalIndex) % HERO_VIDEOS.length];
+  const src1 = HERO_VIDEOS[(activeLayer === 1 ? globalIndex : nextGlobalIndex) % HERO_VIDEOS.length];
+
+  const handleVideoEnd = () => {
+    setGlobalIndex((prev) => prev + 1);
+  };
+
+  // Play the newly active layer immediately when state updates
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-    });
-
-    // Sync Lenis with ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update);
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    const activeRef = activeLayer === 0 ? videoRef0 : videoRef1;
+    if (activeRef.current) {
+      activeRef.current.play().catch(console.error);
     }
-    const id = requestAnimationFrame(raf);
+  }, [globalIndex, activeLayer]);
 
-    return () => {
-      cancelAnimationFrame(id);
-      lenis.destroy();
+  // 2. Auto-resume on tab visibility (fixes frozen iOS Safari videos)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        const activeRef = activeLayer === 0 ? videoRef0 : videoRef1;
+        activeRef.current?.play().catch(console.error);
+      }
     };
-  }, []);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [activeLayer]);
 
-  // ── GSAP Animations (scoped to containerRef) ───────────────────────────────
+  // ── Smooth scrolling with Lenis ────────────────────────────────────────────
   useGSAP(
     () => {
       // 1. Hero stagger reveal: badge → headline → paragraph → cta
@@ -280,28 +301,36 @@ export default function Home() {
         style={{ zIndex: 0 }}
         aria-hidden="true"
       >
+        {/* Layer 0 */}
         <video
-          autoPlay
-          loop
+          ref={videoRef0}
+          src={src0}
+          autoPlay={activeLayer === 0}
           muted
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            minWidth: "100%",
-            minHeight: "100%",
-          }}
-        >
-          <source
-            src="https://res.cloudinary.com/voloostore/video/upload/q_auto:low,f_auto,w_1280/v1779669610/cpfuwmzuoohuiojizim1.mp4"
-            type="video/mp4"
-            media="(max-width: 768px)"
-          />
-          <source
-            src="https://res.cloudinary.com/voloostore/video/upload/q_auto,f_auto,w_1920/v1779669610/cpfuwmzuoohuiojizim1.mp4"
-            type="video/mp4"
-          />
-        </video>
+          onEnded={activeLayer === 0 ? handleVideoEnd : undefined}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+            activeLayer === 0 ? "opacity-100" : "opacity-0"
+          }`}
+          style={{ minWidth: "100%", minHeight: "100%" }}
+        />
+        
+        {/* Layer 1 (Background Preloader) */}
+        <video
+          ref={videoRef1}
+          src={src1}
+          autoPlay={activeLayer === 1}
+          muted
+          playsInline
+          preload="auto"
+          onEnded={activeLayer === 1 ? handleVideoEnd : undefined}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+            activeLayer === 1 ? "opacity-100" : "opacity-0"
+          }`}
+          style={{ minWidth: "100%", minHeight: "100%" }}
+        />
+
         {/* Dark tint overlay */}
         <div
           className="absolute inset-0"
