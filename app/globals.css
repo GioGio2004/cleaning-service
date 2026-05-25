@@ -1,0 +1,124 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+/* Fonts loaded via next/font/google in layout.tsx (avoids PostCSS @import ordering issues) */
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─── Premium Natural / Organic Design Tokens ─── */
+@theme inline {
+  /* Brand palette */
+  --color-sand-50:   #F7F5F0;
+  --color-sand-100:  #EDE9E0;
+  --color-sand-200:  #DDD8CB;
+  --color-forest-900: #1A2F24;
+  --color-forest-800: #243D31;
+  --color-forest-700: #2E4D3E;
+  --color-pine-600:  #2A4D3E;
+  --color-pine-700:  #1F3A2E;
+  --color-clay-500:  #C26D5C;
+  --color-clay-400:  #CF8475;
+  --color-clay-600:  #A8573F;
+
+  /* Override shadcn semantic tokens to match brand */
+  --color-background:         var(--color-sand-50);
+  --color-foreground:         var(--color-forest-900);
+  --color-primary:            var(--color-pine-600);
+  --color-primary-foreground: #ffffff;
+  --color-secondary:          var(--color-sand-100);
+  --color-secondary-foreground: var(--color-forest-900);
+  --color-muted:              var(--color-sand-200);
+  --color-muted-foreground:   var(--color-forest-700);
+  --color-accent:             var(--color-clay-500);
+  --color-accent-foreground:  #ffffff;
+  --color-card:               rgba(255, 255, 255, 0.6);
+  --color-card-foreground:    var(--color-forest-900);
+  --color-border:             rgba(26, 47, 36, 0.12);
+  --color-ring:               var(--color-pine-600);
+  --color-input:              rgba(26, 47, 36, 0.08);
+  --color-popover:            var(--color-sand-50);
+  --color-popover-foreground: var(--color-forest-900);
+  --color-destructive:        oklch(0.577 0.245 27.325);
+
+  /* Radius */
+  --radius:    0.75rem;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+
+  /* Typography */
+  --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif:   "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-heading: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-mono:    ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ─── Shadcn variable bridge (keeps shadcn components working) ─── */
+:root {
+  --background:             #F7F5F0;
+  --foreground:             #1A2F24;
+  --card:                   rgba(255,255,255,0.60);
+  --card-foreground:        #1A2F24;
+  --popover:                #F7F5F0;
+  --popover-foreground:     #1A2F24;
+  --primary:                #2A4D3E;
+  --primary-foreground:     #ffffff;
+  --secondary:              #EDE9E0;
+  --secondary-foreground:   #1A2F24;
+  --muted:                  #DDD8CB;
+  --muted-foreground:       #2E4D3E;
+  --accent:                 #C26D5C;
+  --accent-foreground:      #ffffff;
+  --destructive:            oklch(0.577 0.245 27.325);
+  --border:                 rgba(26,47,36,0.12);
+  --input:                  rgba(26,47,36,0.08);
+  --ring:                   #2A4D3E;
+  --radius:                 0.75rem;
+  --sidebar:                #EDE9E0;
+  --sidebar-foreground:     #1A2F24;
+  --sidebar-primary:        #2A4D3E;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent:         #DDD8CB;
+  --sidebar-accent-foreground: #1A2F24;
+  --sidebar-border:         rgba(26,47,36,0.12);
+  --sidebar-ring:           #2A4D3E;
+}
+
+/* No dark mode — the Premium Natural aesthetic is always light */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+  html {
+    background-color: #F7F5F0;
+    color: #1A2F24;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: auto; /* Lenis handles smooth scrolling */
+  }
+  body {
+    @apply bg-sand-50 text-forest-900;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+}
+
+/* ─── Utility: frosted glass card ─── */
+@layer utilities {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.60);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+  }
+  .glass-card-strong {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.50);
+  }
+}
