@@ -12,42 +12,58 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
+// ── IMAGE URLS (Edit these with your Cloudinary links) ──────────────────────
+export const SERVICE_IMAGES = {
+  softFurniture:
+    "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=900&auto=format&fit=crop",
+  poolAndPatio:
+    "https://res.cloudinary.com/voloostore/image/upload/v1779670098/i9ghdol2coicanq6gzon.webp",
+  mattresses:
+    "https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=900&auto=format&fit=crop",
+  deepHouse:
+    "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=900&auto=format&fit=crop",
+  commercial:
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=900&auto=format&fit=crop",
+  moveInOut:
+    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=900&auto=format&fit=crop",
+};
+
 // ── Data ──────────────────────────────────────────────────────────────────────
 const SERVICES = [
   {
     title: "Soft Furniture",
     desc: "Deep enzyme extraction for couches, armchairs, and sectionals. Restores fabric texture and eliminates allergens.",
-    img: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=900&auto=format&fit=crop",
+    img: SERVICE_IMAGES.softFurniture,
     badge: "Most Popular",
   },
   {
-    title: "Auto Interiors",
-    desc: "Full cabin detailing, stain removal, and odor neutralization using professional-grade equipment.",
-    img: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=900&auto=format&fit=crop",
+    title: "Pool & Patio",
+    desc: "High-pressure restoration, chemical balancing, and tile scrubbing for outdoor spaces.",
+    img: SERVICE_IMAGES.poolAndPatio,
     badge: null,
   },
   {
     title: "Mattresses",
     desc: "Sanitization, dust-mite eradication, and UV treatment for a hygienic night's sleep.",
-    img: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=900&auto=format&fit=crop",
+    img: SERVICE_IMAGES.mattresses,
     badge: null,
   },
   {
     title: "Deep House Cleaning",
     desc: "Top-to-bottom residential detailing — every surface, corner, and fixture restored.",
-    img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=900&auto=format&fit=crop",
+    img: SERVICE_IMAGES.deepHouse,
     badge: null,
   },
   {
-    title: "Post-Renovation",
-    desc: "Industrial dust removal, paint splatter cleanup, and site finishing after construction.",
-    img: "https://images.unsplash.com/photo-1504307651254-35680f356fce?q=80&w=900&auto=format&fit=crop",
+    title: "Commercial Spaces",
+    desc: "Professional cleaning for offices, restaurants, and retail spaces. Creates a pristine environment for your business.",
+    img: SERVICE_IMAGES.commercial,
     badge: null,
   },
   {
-    title: "Pool & Patio",
-    desc: "High-pressure restoration, chemical balancing, and tile scrubbing for outdoor spaces.",
-    img: "https://images.unsplash.com/photo-1576013551627-8ce9a4fb1f2c?q=80&w=900&auto=format&fit=crop",
+    title: "Move-In / Move-Out",
+    desc: "Comprehensive deep cleaning for property transitions. Ensures a spotless handover for landlords or new tenants.",
+    img: SERVICE_IMAGES.moveInOut,
     badge: null,
   },
 ];
@@ -256,7 +272,7 @@ export default function Home() {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen bg-charcoal-950 text-slate-200"
+      className="relative min-h-screen bg-black text-slate-200"
     >
       {/* ── 1. FIXED CINEMATIC VIDEO BACKGROUND ────────────────────────────── */}
       <div
@@ -272,31 +288,31 @@ export default function Home() {
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
           style={{
-            minWidth: '100%',
-            minHeight: '100%',
+            minWidth: "100%",
+            minHeight: "100%",
           }}
         >
           <source
-            src="https://res.cloudinary.com/voloostore/video/upload/q_auto:low,f_auto,w_1280/v1779666909/qifi3ams9lrec8axbh6c.mp4"
+            src="https://res.cloudinary.com/voloostore/video/upload/q_auto:low,f_auto,w_1280/v1779669610/cpfuwmzuoohuiojizim1.mp4"
             type="video/mp4"
             media="(max-width: 768px)"
           />
           <source
-            src="https://res.cloudinary.com/voloostore/video/upload/q_auto,f_auto,w_1920/v1779666909/qifi3ams9lrec8axbh6c.mp4"
+            src="https://res.cloudinary.com/voloostore/video/upload/q_auto,f_auto,w_1920/v1779669610/cpfuwmzuoohuiojizim1.mp4"
             type="video/mp4"
           />
         </video>
-        {/* 60% Dark tint overlay */}
+        {/* Dark tint overlay */}
         <div
           className="absolute inset-0"
-          style={{ background: "rgba(10,10,11,0.60)" }}
+          style={{ background: "rgba(0,0,0,0.50)" }}
         />
       </div>
 
       {/* ── 2. NAVIGATION ──────────────────────────────────────────────────── */}
       <header className="fixed top-0 left-0 right-0 z-50 px-6 py-5 flex items-center justify-between">
         <div className="glass-card rounded-full px-5 py-2.5 flex items-center gap-2.5">
-          <Leaf className="w-4 h-4 text-gold-500" />
+          <Leaf className="w-4 h-4 text-white" />
           <span
             className="nav-logo font-bold text-slate-200 tracking-widest uppercase text-sm"
             style={{ fontFamily: "var(--font-inter)" }}
@@ -309,9 +325,9 @@ export default function Home() {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="glass-card rounded-full px-5 py-2.5 flex items-center gap-2 text-slate-200 text-sm font-medium hover:bg-charcoal-700/80 transition-all duration-300 hover:scale-105 active:scale-95"
+          className="rounded-full px-5 py-2.5 flex items-center gap-2 text-slate-200 text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95 bg-black/60 backdrop-blur-md border border-white/10 hover:bg-black/80"
         >
-          <Phone className="w-4 h-4 text-gold-500" />
+          <Phone className="w-4 h-4 text-white" />
           <span className="hidden sm:block">Book Now</span>
         </a>
       </header>
@@ -324,9 +340,9 @@ export default function Home() {
         {/* Badge */}
         <div className="hero-reveal mb-8">
           <span className="inline-flex items-center gap-2 glass-card rounded-full px-5 py-2 text-sm font-medium text-slate-200 border border-white/10">
-            <Star className="w-3.5 h-3.5 text-gold-500 fill-gold-500" />
+            <Star className="w-3.5 h-3.5 text-white fill-white" />
             Tbilisi&apos;s Premium Care
-            <Star className="w-3.5 h-3.5 text-gold-500 fill-gold-500" />
+            <Star className="w-3.5 h-3.5 text-white fill-white" />
           </span>
         </div>
 
@@ -339,7 +355,7 @@ export default function Home() {
         >
           Revive Your Space.{" "}
           <em
-            className="italic text-gold-500 not-italic"
+            className="italic text-white not-italic"
             style={{ fontStyle: "italic" }}
           >
             Naturally.
@@ -347,7 +363,7 @@ export default function Home() {
         </h1>
 
         {/* Subheadline */}
-        <p className="hero-reveal mt-7 max-w-xl text-lg leading-relaxed text-slate-300/80 font-light">
+        <p className="hero-reveal mt-7 max-w-xl text-lg leading-relaxed text-white/80 font-light">
           Premium deep cleaning that respects your home, your health, and the
           environment. Est. 2026 in Tbilisi, Georgia.
         </p>
@@ -360,21 +376,21 @@ export default function Home() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gold-500 text-charcoal-950 font-semibold text-base tracking-wide shadow-lg shadow-gold-500/20 hover:bg-gold-400 transition-colors duration-300"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-base tracking-wide shadow-lg transition-colors duration-300 bg-black/60 backdrop-blur-md border border-white/10 text-white hover:bg-black/80"
           >
             <MessageCircle className="w-5 h-5" />
             Book via WhatsApp
           </a>
           <a
             href="#services"
-            className="inline-flex items-center gap-2 px-6 py-4 rounded-full glass-card text-slate-200 font-medium text-base hover:bg-charcoal-700/80 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-6 py-4 rounded-full text-slate-200 font-medium text-base transition-all duration-300 bg-black/60 backdrop-blur-md border border-white/10 hover:bg-black/80"
           >
             Explore Services
           </a>
         </div>
 
         {/* Scroll indicator */}
-        <div className="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40">
+        <div className="hidden scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40">
           <span className="text-xs tracking-widest uppercase font-medium text-slate-200">
             Scroll
           </span>
@@ -419,7 +435,7 @@ export default function Home() {
       >
         {/* Section header */}
         <div className="mb-16 flex flex-col items-center text-center gap-4">
-          <span className="section-label text-xs tracking-[0.2em] uppercase font-semibold text-gold-500">
+          <span className="section-label text-xs tracking-[0.2em] uppercase font-semibold text-white">
             What We Do
           </span>
           <h2
@@ -454,7 +470,7 @@ export default function Home() {
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 {service.badge && (
-                  <span className="absolute top-3 left-3 bg-gold-500 text-charcoal-950 text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                  <span className="absolute top-3 left-3 bg-white text-charcoal-950 text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
                     {service.badge}
                   </span>
                 )}
@@ -478,7 +494,7 @@ export default function Home() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-500 hover:text-gold-400 transition-colors group/link"
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:text-slate-400 transition-colors group/link"
                 >
                   Book this service
                   <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1">
@@ -494,7 +510,7 @@ export default function Home() {
       {/* ── 6. PRICING ─────────────────────────────────────────────────────── */}
       <section className="relative z-10 pricing-section px-6 py-28 max-w-5xl mx-auto">
         <div className="mb-16 flex flex-col items-center text-center gap-4">
-          <span className="text-xs tracking-[0.2em] uppercase font-semibold text-gold-500">
+          <span className="text-xs tracking-[0.2em] uppercase font-semibold text-white">
             Investment
           </span>
           <h2
@@ -513,14 +529,14 @@ export default function Home() {
               key={idx}
               className={`pricing-card rounded-2xl p-8 flex flex-col gap-5 transition-transform duration-300 hover:-translate-y-1 ${
                 tier.highlight
-                  ? "bg-gold-500 text-charcoal-950 shadow-2xl shadow-gold-500/25"
+                  ? "bg-white text-black shadow-2xl shadow-slate-300/25"
                   : "glass-card"
               }`}
             >
               <div>
                 <p
                   className={`text-xs tracking-widest uppercase font-semibold mb-2 ${
-                    tier.highlight ? "text-charcoal-950/60" : "text-slate-400"
+                    tier.highlight ? "text-black/60" : "text-slate-400"
                   }`}
                 >
                   {tier.title}
@@ -529,7 +545,7 @@ export default function Home() {
                   {tier.currency && (
                     <span
                       className={`text-sm font-medium pb-1 ${
-                        tier.highlight ? "text-charcoal-950/70" : "text-gold-500"
+                        tier.highlight ? "text-black/70" : "text-white"
                       }`}
                     >
                       {tier.currency}
@@ -537,7 +553,7 @@ export default function Home() {
                   )}
                   <span
                     className={`text-5xl font-bold ${
-                      tier.highlight ? "text-charcoal-950" : "text-gold-500"
+                      tier.highlight ? "text-black" : "text-white"
                     }`}
                     style={{
                       fontFamily:
@@ -548,7 +564,7 @@ export default function Home() {
                   </span>
                   <span
                     className={`text-sm pb-1.5 ${
-                      tier.highlight ? "text-charcoal-950/60" : "text-slate-500"
+                      tier.highlight ? "text-black/60" : "text-slate-500"
                     }`}
                   >
                     / {tier.unit}
@@ -558,7 +574,7 @@ export default function Home() {
 
               <p
                 className={`text-sm leading-relaxed ${
-                  tier.highlight ? "text-charcoal-950/75" : "text-slate-400"
+                  tier.highlight ? "text-black/75" : "text-slate-400"
                 }`}
               >
                 {tier.desc}
@@ -569,12 +585,12 @@ export default function Home() {
                   <li
                     key={f}
                     className={`flex items-center gap-2 text-sm ${
-                      tier.highlight ? "text-charcoal-950/85" : "text-slate-300"
+                      tier.highlight ? "text-black/85" : "text-white"
                     }`}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                        tier.highlight ? "bg-charcoal-950/60" : "bg-gold-500"
+                        tier.highlight ? "bg-black/60" : "bg-white"
                       }`}
                     />
                     {f}
@@ -588,8 +604,8 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className={`mt-auto flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-semibold text-sm tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-95 ${
                   tier.highlight
-                    ? "bg-charcoal-950 text-gold-500 hover:bg-charcoal-900 shadow-lg"
-                    : "bg-gold-500 text-charcoal-950 hover:bg-gold-400 shadow-md shadow-gold-500/20"
+                    ? "bg-black text-white hover:bg-black/80 shadow-lg"
+                    : "bg-black/60 backdrop-blur-md border border-white/10 text-white hover:bg-black/80 shadow-md"
                 }`}
               >
                 <MessageCircle className="w-4 h-4" />
@@ -616,7 +632,7 @@ export default function Home() {
         />
 
         <div className="footer-cta relative max-w-3xl mx-auto flex flex-col items-center gap-8">
-          <span className="text-xs tracking-[0.25em] uppercase font-semibold text-gold-500">
+          <span className="text-xs tracking-[0.25em] uppercase font-semibold text-white">
             Get in Touch
           </span>
 
@@ -628,10 +644,7 @@ export default function Home() {
           >
             Ready to
             <br />
-            <em
-              className="italic text-gold-500"
-              style={{ fontStyle: "italic" }}
-            >
+            <em className="italic text-white" style={{ fontStyle: "italic" }}>
               Begin?
             </em>
           </h2>
@@ -646,7 +659,7 @@ export default function Home() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gold-500 text-charcoal-950 font-semibold text-lg tracking-wide shadow-xl shadow-gold-500/30 hover:bg-gold-400 hover:scale-105 active:scale-95 transition-all duration-300"
+            className="inline-flex items-center gap-3 px-10 py-5 rounded-full font-semibold text-lg tracking-wide shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 bg-black/60 backdrop-blur-md border border-white/10 text-white hover:bg-black/80"
           >
             <MessageCircle className="w-6 h-6" />
             Connect via WhatsApp
