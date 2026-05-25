@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
-import { MessageCircle, Leaf, Phone, Star, ChevronDown } from "lucide-react";
+import { MessageCircle, Leaf, Phone, Star } from "lucide-react";
 
 // ── Register GSAP plugins safely outside component lifecycle ──────────────────
 if (typeof window !== "undefined") {
@@ -133,16 +133,7 @@ export default function Home() {
         },
       );
 
-      // 2. Hero scroll indicator bob
-      gsap.to(".scroll-indicator", {
-        y: 8,
-        duration: 1.4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-
-      // 3. Nav logo slide in
+      // 2. Nav logo slide in
       gsap.fromTo(
         ".nav-logo",
         { opacity: 0, x: -20 },
@@ -237,7 +228,7 @@ export default function Home() {
     { scope: containerRef },
   );
 
-  // ─��� CTA Button GSAP hover (separate from scoped context) ──────────────────
+  // ─����� CTA Button GSAP hover (separate from scoped context) ──────────────────
   useEffect(() => {
     const btn = ctaBtnRef.current;
     if (!btn) return;
@@ -295,8 +286,8 @@ export default function Home() {
 
       {/* ── 2. NAVIGATION ──────────────────────────────────────────────────── */}
       <header className="fixed top-0 left-0 right-0 z-50 px-6 py-5 flex items-center justify-between">
-        <div className="glass-card rounded-full px-5 py-2.5 flex items-center gap-2.5">
-          <Leaf className="w-4 h-4 text-gold-500" />
+        <div className="glass-card rounded-sm px-5 py-2.5 flex items-center gap-2.5">
+          <Leaf className="w-4 h-4 text-white" />
           <span
             className="nav-logo font-bold text-slate-200 tracking-widest uppercase text-sm"
             style={{ fontFamily: "var(--font-inter)" }}
@@ -309,9 +300,9 @@ export default function Home() {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="glass-card rounded-full px-5 py-2.5 flex items-center gap-2 text-slate-200 text-sm font-medium hover:bg-charcoal-700/80 transition-all duration-300 hover:scale-105 active:scale-95"
+          className="glass-card rounded-sm px-5 py-2.5 flex items-center gap-2 text-slate-200 text-sm font-medium hover:bg-charcoal-700/80 transition-all duration-300 hover:scale-105 active:scale-95"
         >
-          <Phone className="w-4 h-4 text-gold-500" />
+          <Phone className="w-4 h-4 text-white" />
           <span className="hidden sm:block">Book Now</span>
         </a>
       </header>
@@ -323,10 +314,10 @@ export default function Home() {
       >
         {/* Badge */}
         <div className="hero-reveal mb-8">
-          <span className="inline-flex items-center gap-2 glass-card rounded-full px-5 py-2 text-sm font-medium text-slate-200 border border-white/10">
-            <Star className="w-3.5 h-3.5 text-gold-500 fill-gold-500" />
+          <span className="inline-flex items-center gap-2 glass-card rounded-sm px-5 py-2 text-sm font-medium text-slate-200 border border-white/10">
+            <Star className="w-3.5 h-3.5 text-white fill-white" />
             Tbilisi&apos;s Premium Care
-            <Star className="w-3.5 h-3.5 text-gold-500 fill-gold-500" />
+            <Star className="w-3.5 h-3.5 text-white fill-white" />
           </span>
         </div>
 
@@ -339,7 +330,7 @@ export default function Home() {
         >
           Revive Your Space.{" "}
           <em
-            className="italic text-gold-500 not-italic"
+            className="italic text-white not-italic"
             style={{ fontStyle: "italic" }}
           >
             Naturally.
@@ -360,25 +351,17 @@ export default function Home() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gold-500 text-charcoal-950 font-semibold text-base tracking-wide shadow-lg shadow-gold-500/20 hover:bg-gold-400 transition-colors duration-300"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-sm bg-white text-charcoal-950 font-semibold text-base tracking-wide shadow-lg shadow-white/10 hover:bg-slate-200 transition-colors duration-300"
           >
             <MessageCircle className="w-5 h-5" />
             Book via WhatsApp
           </a>
           <a
             href="#services"
-            className="inline-flex items-center gap-2 px-6 py-4 rounded-full glass-card text-slate-200 font-medium text-base hover:bg-charcoal-700/80 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-6 py-4 rounded-sm glass-card text-slate-200 font-medium text-base hover:bg-charcoal-700/80 transition-all duration-300"
           >
             Explore Services
           </a>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40">
-          <span className="text-xs tracking-widest uppercase font-medium text-slate-200">
-            Scroll
-          </span>
-          <ChevronDown className="w-4 h-4 text-slate-200" />
         </div>
       </section>
 
@@ -419,7 +402,7 @@ export default function Home() {
       >
         {/* Section header */}
         <div className="mb-16 flex flex-col items-center text-center gap-4">
-          <span className="section-label text-xs tracking-[0.2em] uppercase font-semibold text-gold-500">
+          <span className="section-label text-xs tracking-[0.2em] uppercase font-semibold text-white">
             What We Do
           </span>
           <h2
@@ -441,7 +424,7 @@ export default function Home() {
           {SERVICES.map((service, index) => (
             <article
               key={index}
-              className="service-card glass-card rounded-2xl overflow-hidden group cursor-default"
+              className="service-card glass-card rounded-lg overflow-hidden group cursor-default"
             >
               {/* Image */}
               <div className="relative aspect-[16/10] overflow-hidden">
@@ -454,7 +437,7 @@ export default function Home() {
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 {service.badge && (
-                  <span className="absolute top-3 left-3 bg-gold-500 text-charcoal-950 text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                  <span className="absolute top-3 left-3 bg-white text-charcoal-950 text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-sm">
                     {service.badge}
                   </span>
                 )}
@@ -478,7 +461,7 @@ export default function Home() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-500 hover:text-gold-400 transition-colors group/link"
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:text-slate-300 transition-colors group/link"
                 >
                   Book this service
                   <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1">
@@ -494,7 +477,7 @@ export default function Home() {
       {/* ── 6. PRICING ─────────────────────────────────────────────────────── */}
       <section className="relative z-10 pricing-section px-6 py-28 max-w-5xl mx-auto">
         <div className="mb-16 flex flex-col items-center text-center gap-4">
-          <span className="text-xs tracking-[0.2em] uppercase font-semibold text-gold-500">
+          <span className="text-xs tracking-[0.2em] uppercase font-semibold text-white">
             Investment
           </span>
           <h2
@@ -511,9 +494,9 @@ export default function Home() {
           {PRICING.map((tier, idx) => (
             <div
               key={idx}
-              className={`pricing-card rounded-2xl p-8 flex flex-col gap-5 transition-transform duration-300 hover:-translate-y-1 ${
+              className={`pricing-card rounded-lg p-8 flex flex-col gap-5 transition-transform duration-300 hover:-translate-y-1 ${
                 tier.highlight
-                  ? "bg-gold-500 text-charcoal-950 shadow-2xl shadow-gold-500/25"
+                  ? "bg-white text-charcoal-950 shadow-2xl shadow-white/10"
                   : "glass-card"
               }`}
             >
@@ -529,7 +512,7 @@ export default function Home() {
                   {tier.currency && (
                     <span
                       className={`text-sm font-medium pb-1 ${
-                        tier.highlight ? "text-charcoal-950/70" : "text-gold-500"
+                        tier.highlight ? "text-charcoal-950/70" : "text-white"
                       }`}
                     >
                       {tier.currency}
@@ -537,7 +520,7 @@ export default function Home() {
                   )}
                   <span
                     className={`text-5xl font-bold ${
-                      tier.highlight ? "text-charcoal-950" : "text-gold-500"
+                      tier.highlight ? "text-charcoal-950" : "text-white"
                     }`}
                     style={{
                       fontFamily:
@@ -574,7 +557,7 @@ export default function Home() {
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                        tier.highlight ? "bg-charcoal-950/60" : "bg-gold-500"
+                        tier.highlight ? "bg-charcoal-950/60" : "bg-white"
                       }`}
                     />
                     {f}
@@ -586,10 +569,10 @@ export default function Home() {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`mt-auto flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-semibold text-sm tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-95 ${
+                className={`mt-auto flex items-center justify-center gap-2 py-3.5 px-6 rounded-sm font-semibold text-sm tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-95 ${
                   tier.highlight
-                    ? "bg-charcoal-950 text-gold-500 hover:bg-charcoal-900 shadow-lg"
-                    : "bg-gold-500 text-charcoal-950 hover:bg-gold-400 shadow-md shadow-gold-500/20"
+                    ? "bg-charcoal-950 text-white hover:bg-charcoal-900 shadow-lg"
+                    : "bg-white text-charcoal-950 hover:bg-slate-200 shadow-md shadow-white/10"
                 }`}
               >
                 <MessageCircle className="w-4 h-4" />
@@ -610,13 +593,13 @@ export default function Home() {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)",
           }}
           aria-hidden="true"
         />
 
         <div className="footer-cta relative max-w-3xl mx-auto flex flex-col items-center gap-8">
-          <span className="text-xs tracking-[0.25em] uppercase font-semibold text-gold-500">
+          <span className="text-xs tracking-[0.25em] uppercase font-semibold text-white">
             Get in Touch
           </span>
 
@@ -629,7 +612,7 @@ export default function Home() {
             Ready to
             <br />
             <em
-              className="italic text-gold-500"
+              className="italic text-white"
               style={{ fontStyle: "italic" }}
             >
               Begin?
@@ -646,7 +629,7 @@ export default function Home() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gold-500 text-charcoal-950 font-semibold text-lg tracking-wide shadow-xl shadow-gold-500/30 hover:bg-gold-400 hover:scale-105 active:scale-95 transition-all duration-300"
+            className="inline-flex items-center gap-3 px-10 py-5 rounded-sm bg-white text-charcoal-950 font-semibold text-lg tracking-wide shadow-xl shadow-white/10 hover:bg-slate-200 hover:scale-105 active:scale-95 transition-all duration-300"
           >
             <MessageCircle className="w-6 h-6" />
             Connect via WhatsApp
