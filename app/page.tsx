@@ -6,6 +6,8 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import { MessageCircle, Leaf, Phone, Star, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { ServiceCard } from "@/components/service-components/ServiceCard";
 
 // ── Register GSAP plugins safely outside component lifecycle ──────────────────
 if (typeof window !== "undefined") {
@@ -16,10 +18,10 @@ if (typeof window !== "undefined") {
 export const HERO_VIDEOS = [
   "https://res.cloudinary.com/voloostore/video/upload/v1779669610/cpfuwmzuoohuiojizim1.mp4",
   "https://res.cloudinary.com/voloostore/video/upload/v1779671031/nuauknjzn5l2s7ygsd6p.mp4",
-  "https://res.cloudinary.com/voloostore/video/upload/v1779671024/ydsukjkopuqnfimwukmg.mp4"
+  "https://res.cloudinary.com/voloostore/video/upload/v1779671024/ydsukjkopuqnfimwukmg.mp4",
 ];
 
-// ── IMAGE URLS (Edit these with your Cloudinary links) ──────────────────────
+// ── IMAGE URLS ──────────────────────────────────────────────────────────────
 export const SERVICE_IMAGES = {
   softFurniture:
     "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=900&auto=format&fit=crop",
@@ -35,45 +37,15 @@ export const SERVICE_IMAGES = {
     "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=900&auto=format&fit=crop",
 };
 
-// ── Data ──────────────────────────────────────────────────────────────────────
-const SERVICES = [
-  {
-    title: "Soft Furniture",
-    desc: "Deep enzyme extraction for couches, armchairs, and sectionals. Restores fabric texture and eliminates allergens.",
-    img: SERVICE_IMAGES.softFurniture,
-    badge: "Most Popular",
-  },
-  {
-    title: "Pool & Patio",
-    desc: "High-pressure restoration, chemical balancing, and tile scrubbing for outdoor spaces.",
-    img: SERVICE_IMAGES.poolAndPatio,
-    badge: null,
-  },
-  {
-    title: "Mattresses",
-    desc: "Sanitization, dust-mite eradication, and UV treatment for a hygienic night's sleep.",
-    img: SERVICE_IMAGES.mattresses,
-    badge: null,
-  },
-  {
-    title: "Deep House Cleaning",
-    desc: "Top-to-bottom residential detailing — every surface, corner, and fixture restored.",
-    img: SERVICE_IMAGES.deepHouse,
-    badge: null,
-  },
-  {
-    title: "Commercial Spaces",
-    desc: "Professional cleaning for offices, restaurants, and retail spaces. Creates a pristine environment for your business.",
-    img: SERVICE_IMAGES.commercial,
-    badge: null,
-  },
-  {
-    title: "Move-In / Move-Out",
-    desc: "Comprehensive deep cleaning for property transitions. Ensures a spotless handover for landlords or new tenants.",
-    img: SERVICE_IMAGES.moveInOut,
-    badge: null,
-  },
+// ── Images shown inside the pill collage button ─────────────────────────────
+const PILL_IMAGES = [
+  SERVICE_IMAGES.softFurniture,
+  SERVICE_IMAGES.poolAndPatio,
+  SERVICE_IMAGES.mattresses,
+  SERVICE_IMAGES.commercial,
 ];
+
+// ── Data ──────────────────────────────────────────────────────────────────────
 
 const PRICING = [
   {
@@ -118,19 +90,22 @@ export default function Home() {
   const videoRef0 = useRef<HTMLVideoElement>(null);
   const videoRef1 = useRef<HTMLVideoElement>(null);
 
-  const activeLayer = globalIndex % 2; // 0 or 1
+  const activeLayer = globalIndex % 2;
   const nextGlobalIndex = globalIndex + 1;
 
-  // Layer 0 plays even indices, Layer 1 plays odd indices.
-  // The hidden layer is always assigned the 'next' video to preload natively.
-  const src0 = HERO_VIDEOS[(activeLayer === 0 ? globalIndex : nextGlobalIndex) % HERO_VIDEOS.length];
-  const src1 = HERO_VIDEOS[(activeLayer === 1 ? globalIndex : nextGlobalIndex) % HERO_VIDEOS.length];
+  const src0 =
+    HERO_VIDEOS[
+      (activeLayer === 0 ? globalIndex : nextGlobalIndex) % HERO_VIDEOS.length
+    ];
+  const src1 =
+    HERO_VIDEOS[
+      (activeLayer === 1 ? globalIndex : nextGlobalIndex) % HERO_VIDEOS.length
+    ];
 
   const handleVideoEnd = () => {
     setGlobalIndex((prev) => prev + 1);
   };
 
-  // Play the newly active layer immediately when state updates
   useEffect(() => {
     const activeRef = activeLayer === 0 ? videoRef0 : videoRef1;
     if (activeRef.current) {
@@ -138,7 +113,6 @@ export default function Home() {
     }
   }, [globalIndex, activeLayer]);
 
-  // 2. Auto-resume on tab visibility (fixes frozen iOS Safari videos)
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
@@ -152,10 +126,9 @@ export default function Home() {
     };
   }, [activeLayer]);
 
-  // ── Smooth scrolling with Lenis ────────────────────────────────────────────
+  // ── GSAP Animations ────────────────────────────────────────────────────────
   useGSAP(
     () => {
-      // 1. Hero stagger reveal: badge → headline → paragraph → cta
       gsap.fromTo(
         ".hero-reveal",
         { opacity: 0, y: 30, filter: "blur(8px)" },
@@ -170,7 +143,6 @@ export default function Home() {
         },
       );
 
-      // 2. Hero scroll indicator bob
       gsap.to(".scroll-indicator", {
         y: 8,
         duration: 1.4,
@@ -179,14 +151,12 @@ export default function Home() {
         ease: "sine.inOut",
       });
 
-      // 3. Nav logo slide in
       gsap.fromTo(
         ".nav-logo",
         { opacity: 0, x: -20 },
         { opacity: 1, x: 0, duration: 0.8, ease: "power2.out", delay: 0.1 },
       );
 
-      // 4. Services section label
       gsap.fromTo(
         ".section-label",
         { opacity: 0, letterSpacing: "0.4em" },
@@ -202,25 +172,6 @@ export default function Home() {
         },
       );
 
-      // 5. Service cards stagger reveal
-      gsap.fromTo(
-        ".service-card",
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          stagger: 0.12,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: ".services-grid",
-            start: "top 78%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
-
-      // 6. Pricing cards stagger
       gsap.fromTo(
         ".pricing-card",
         { opacity: 0, y: 40, scale: 0.96 },
@@ -238,7 +189,6 @@ export default function Home() {
         },
       );
 
-      // 7. Trust row items
       gsap.fromTo(
         ".trust-item",
         { opacity: 0, y: 20 },
@@ -255,7 +205,6 @@ export default function Home() {
         },
       );
 
-      // 8. Footer CTA
       gsap.fromTo(
         ".footer-cta",
         { opacity: 0, y: 30 },
@@ -270,11 +219,27 @@ export default function Home() {
           },
         },
       );
+
+      // Pill button scroll reveal
+      gsap.fromTo(
+        ".pill-collage-btn",
+        { opacity: 0, y: 40, scale: 0.94 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: ".pill-collage-btn",
+            start: "top 88%",
+          },
+        },
+      );
     },
     { scope: containerRef },
   );
 
-  // ─��� CTA Button GSAP hover (separate from scoped context) ──────────────────
   useEffect(() => {
     const btn = ctaBtnRef.current;
     if (!btn) return;
@@ -301,7 +266,6 @@ export default function Home() {
         style={{ zIndex: 0 }}
         aria-hidden="true"
       >
-        {/* Layer 0 */}
         <video
           ref={videoRef0}
           src={src0}
@@ -315,8 +279,6 @@ export default function Home() {
           }`}
           style={{ minWidth: "100%", minHeight: "100%" }}
         />
-        
-        {/* Layer 1 (Background Preloader) */}
         <video
           ref={videoRef1}
           src={src1}
@@ -330,8 +292,6 @@ export default function Home() {
           }`}
           style={{ minWidth: "100%", minHeight: "100%" }}
         />
-
-        {/* Dark tint overlay */}
         <div
           className="absolute inset-0"
           style={{ background: "rgba(0,0,0,0.50)" }}
@@ -366,7 +326,6 @@ export default function Home() {
         className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] px-6 text-center"
         aria-label="Hero"
       >
-        {/* Badge */}
         <div className="hero-reveal mb-8">
           <span className="inline-flex items-center gap-2 glass-card rounded-full px-5 py-2 text-sm font-medium text-slate-200 border border-white/10">
             <Star className="w-3.5 h-3.5 text-white fill-white" />
@@ -375,7 +334,6 @@ export default function Home() {
           </span>
         </div>
 
-        {/* Headline */}
         <h1
           className="hero-reveal max-w-4xl text-[clamp(3.5rem,10vw,8rem)] font-bold leading-[0.92] tracking-tight text-slate-200"
           style={{
@@ -391,13 +349,11 @@ export default function Home() {
           </em>
         </h1>
 
-        {/* Subheadline */}
         <p className="hero-reveal mt-7 max-w-xl text-lg leading-relaxed text-white/80 font-light">
           Premium deep cleaning that respects your home, your health, and the
           environment. Est. 2026 in Tbilisi, Georgia.
         </p>
 
-        {/* CTA */}
         <div className="hero-reveal mt-10 flex flex-col sm:flex-row gap-4 items-center">
           <a
             ref={ctaBtnRef}
@@ -418,7 +374,6 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Scroll indicator */}
         <div className="hidden scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40">
           <span className="text-xs tracking-widest uppercase font-medium text-slate-200">
             Scroll
@@ -481,58 +436,114 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="services-grid grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((service, index) => (
-            <article
-              key={index}
-              className="service-card glass-card rounded-2xl overflow-hidden group cursor-default"
+        {/* ── PILL COLLAGE "VIEW ALL SERVICES" BUTTON ─────────────────────── */}
+        <div className="flex justify-center">
+          <Link
+            href="/services"
+            aria-label="View all services"
+            className="pill-collage-btn group relative block"
+            style={{
+              // Prevent the link from stretching to full width
+              display: "inline-block",
+            }}
+          >
+            {/*
+             * Outer pill shell
+             * border-radius: 9999px + overflow: hidden clips all child images
+             * into the stadium shape automatically.
+             */}
+            <div
+              className="relative flex overflow-hidden"
+              style={{
+                borderRadius: "9999px",
+                height: "clamp(140px, 20vw, 220px)",
+                width: "clamp(360px, 64vw, 800px)",
+                maxWidth: "90vw",
+                transition: "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              }}
+              // Inline hover handled by CSS group below
             >
-              {/* Image */}
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <img
-                  src={service.img}
-                  alt={service.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                {service.badge && (
-                  <span className="absolute top-3 left-3 bg-white text-charcoal-950 text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
-                    {service.badge}
-                  </span>
-                )}
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3
-                  className="text-2xl font-semibold text-slate-200 mb-2 leading-tight"
+              {/* Image panels — flex children fill the pill evenly */}
+              {PILL_IMAGES.map((src, i) => (
+                <div
+                  key={i}
+                  className="relative flex-1 overflow-hidden"
                   style={{
-                    fontFamily:
-                      "var(--font-cormorant), 'Cormorant Garamond', serif",
+                    // Thin semi-transparent divider between panels
+                    boxShadow:
+                      i < PILL_IMAGES.length - 1
+                        ? "2px 0 0 0 rgba(255,255,255,0.15)"
+                        : "none",
                   }}
                 >
-                  {service.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-slate-400">
-                  {service.desc}
-                </p>
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:text-slate-400 transition-colors group/link"
+                  <img
+                    src={src}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full object-cover"
+                    style={{
+                      transition: `transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${i * 50}ms`,
+                    }}
+                  />
+                  {/* Per-panel dark vignette for label legibility */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.50) 100%)",
+                    }}
+                  />
+                </div>
+              ))}
+
+              {/* Centre frosted-glass label */}
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center z-10">
+                <span
+                  className="inline-flex items-center gap-2 rounded-full text-white font-semibold tracking-wide"
+                  style={{
+                    fontSize: "clamp(0.85rem, 1.6vw, 1rem)",
+                    padding: "clamp(10px, 1.2vw, 14px) clamp(20px, 3vw, 32px)",
+                    background: "rgba(0,0,0,0.68)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    letterSpacing: "0.04em",
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
+                    transition: "background 0.3s ease, box-shadow 0.3s ease",
+                  }}
                 >
-                  Book this service
-                  <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1">
-                    →
-                  </span>
-                </a>
+                  View All Services
+                </span>
               </div>
-            </article>
-          ))}
+
+              {/* Subtle overall dark overlay that lifts on hover — CSS trick via
+                  a sibling element animated with group-hover */}
+              <div
+                className="absolute inset-0 z-[5] transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+                style={{ background: "rgba(0,0,0,0.12)" }}
+                aria-hidden="true"
+              />
+            </div>
+
+            {/*
+             * Hover scale — applied directly to the inner div via a CSS custom
+             * property trick: we attach the scale via a <style> tag that
+             * targets .pill-collage-btn:hover > div.
+             * Since Tailwind group-hover only targets children with classes,
+             * and inline style can't handle :hover, we use a tiny scoped style.
+             */}
+            <style>{`
+              .pill-collage-btn:hover > div {
+                transform: scale(1.035);
+              }
+              .pill-collage-btn:active > div {
+                transform: scale(0.975);
+              }
+              .pill-collage-btn:hover img {
+                transform: scale(1.10);
+              }
+            `}</style>
+          </Link>
         </div>
       </section>
 
@@ -650,7 +661,6 @@ export default function Home() {
         className="relative z-10 footer-section px-6 py-36 text-center border-t border-white/8 overflow-hidden"
         aria-label="Contact footer"
       >
-        {/* Decorative background circle */}
         <div
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
           style={{
