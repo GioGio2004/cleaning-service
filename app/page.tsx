@@ -106,6 +106,12 @@ export default function Home() {
     setGlobalIndex((prev) => prev + 1);
   };
 
+  // 1. Manually set defaultMuted to true (fixes iOS Safari autoplay bugs without TS errors)
+  useEffect(() => {
+    if (videoRef0.current) videoRef0.current.defaultMuted = true;
+    if (videoRef1.current) videoRef1.current.defaultMuted = true;
+  }, []);
+
   useEffect(() => {
     const activeRef = activeLayer === 0 ? videoRef0 : videoRef1;
     if (activeRef.current) {
